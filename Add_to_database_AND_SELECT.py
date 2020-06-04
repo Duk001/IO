@@ -1,24 +1,12 @@
 import mysql.connector
-from mysql.connector import Error
-from mysql.connector import errorcode
 
-try:
+def dodaj(sql):
     connection = mysql.connector.connect(host='localhost', database='lotnisko', user='root', password='')
-    mySql_insert_query = '''INSERT INTO pasazer (Numer_biletu , Imie, Nazwisko, Nazwa_lotu) VALUES ('441', 'Maciej', 'Doktor', 'Jak najdalej stad') '''
-
     cursor = connection.cursor()
-    cursor.execute(mySql_insert_query)
+    cursor.execute(sql)
     connection.commit()
     print(cursor.rowcount, 'Rekord zostal prawidlowo dodany')
     cursor.close()
-
-except mysql.connector.Error as error:
-    print('Nastapil problem przy dodawaniu rekordu {}'.format(error))
-
-finally:
-    if (connection.is_connected()):
-        connection.close()
-        print('Polaczenie z MySQL zostalo zakonczone')
 
 def wyswietl(sql):
     connection = mysql.connector.connect(host='localhost', database='lotnisko', user='root', password='')
@@ -31,6 +19,8 @@ def wysz_rekordu(info, tab):
     return(f"SELECT * FROM {tab} WHERE Imie LIKE '%{info}%'")
 def wys_wszystko(info, tab) :
     return(f"SELECT {info} FROM {tab}")
+
 imie_pasazera = wyswietl(wysz_rekordu('Maciej','pasazer'))
 wszystkie_informacje = wyswietl(wys_wszystko('Imie','pasazer'))
-
+sql = '''INSERT INTO pasazer (Numer_biletu , Imie, Nazwisko, Nazwa_lotu) VALUES ('11', 'Maciej', 'Doktor', 'Jak najdalej stad')'''
+dodawanie = dodaj(sql)
