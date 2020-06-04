@@ -1,11 +1,10 @@
 import mysql.connector
-import pymysql
 from mysql.connector import Error
 from mysql.connector import errorcode
 
 try:
     connection = mysql.connector.connect(host='localhost', database='lotnisko', user='root', password='')
-    mySql_insert_query = '''INSERT INTO pasazer (Numer_biletu , Imie, Nazwisko, Nazwa_lotu) VALUES ('10', 'Maciej', 'Doktor', 'Jak najdalej stad') '''
+    mySql_insert_query = '''INSERT INTO pasazer (Numer_biletu , Imie, Nazwisko, Nazwa_lotu) VALUES ('441', 'Maciej', 'Doktor', 'Jak najdalej stad') '''
 
     cursor = connection.cursor()
     cursor.execute(mySql_insert_query)
@@ -28,5 +27,10 @@ def wyswietl(sql):
     data = cursor.fetchall()
     return print(data)
 
-sql = ('SELECT Imie FROM pasazer')
-imie_pasazera = wyswietl(sql)
+def wysz_rekordu(info):
+    return(f"SELECT * FROM pasazer WHERE Imie LIKE '%{info}%'")
+def wys_wszystko() :
+    return("SELECT * FROM pasazer")
+imie_pasazera = wyswietl(wysz_rekordu('Maciej'))
+wszystkie_informacje = wyswietl(wys_wszystko())
+
