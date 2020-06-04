@@ -27,10 +27,10 @@ def wyswietl(sql):
     data = cursor.fetchall()
     return print(data)
 
-def wysz_rekordu(info):
-    return(f"SELECT * FROM pasazer WHERE Imie LIKE '%{info}%'")
-def wys_wszystko() :
-    return("SELECT * FROM pasazer")
-imie_pasazera = wyswietl(wysz_rekordu('Maciej'))
-wszystkie_informacje = wyswietl(wys_wszystko())
+def wysz_rekordu(info, tab):
+    return(f"SELECT * FROM {tab} WHERE Imie LIKE '%{info}%'")
+def wys_wszystko(info, tab) :
+    return(f"SELECT {info} FROM {tab}")
+imie_pasazera = wyswietl(wysz_rekordu('Maciej','pasazer'))
+wszystkie_informacje = wyswietl(wys_wszystko('Imie','pasazer'))
 
