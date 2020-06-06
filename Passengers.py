@@ -1,4 +1,6 @@
 from Passenger import *
+
+import Add_to_database_AND_SELECT as db
 class Passengers():
     def __init__(self, passengers):
         self.passengers = passengers
@@ -24,6 +26,22 @@ class Passengers():
         #for passenger in self.passengers:
             
         ...
+    def getPassengersFromDatabase(self):
+        passengersDB = db.getPassengersListFromDatabase()
+        
+        for passengersDATA in passengersDB:
+            for elem in passengersDATA:
+                print(elem)
+                self.addPassenger(Passenger(elem[1] + ' '+ elem[2], elem[3],elem[4],elem[5],elem[0]))
+            #print(passengersDATA)
+            
+            
+        
+       # print(passengersDB)
+        
+        
+        
+
 
 if __name__ == '__main__':
     from pprint import pprint
@@ -33,10 +51,17 @@ if __name__ == '__main__':
     pas4 = Passenger('Joanna Duda','AF777',True,'Checked in','JK0004')
     
     passengers = Passengers([pas4,pas2,pas3,pas1])
-    passengers.updateCheckInStatus('Ewa Kowalska', 'Waiting')
-    passengers.removePassenger('Joanna Duda')
+    passengers = Passengers([])
+    passengers.getPassengersFromDatabase()
+    
     pprint(passengers.getPassengersList())
-    passengers.addPassenger(pas4)
-    pprint(passengers.getPassengersList())
+    
+    
+    # passengers.updateCheckInStatus('Ewa Kowalska', 'Waiting')
+    # passengers.removePassenger('Joanna Duda')
+    # pprint(passengers.getPassengersList())
+    # passengers.addPassenger(pas4)
+    # pprint(passengers.getPassengersList())
+    
     
     

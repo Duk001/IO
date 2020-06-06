@@ -54,7 +54,6 @@ class Flight():
         return[self.name,self.departure,self.arrival,self.destination,self.gate ,self.passengers]
 
 
-
 if __name__ == '__main__':
     datetime_str = '19/6/18 13:55:26'
     datetime_str2 = '19/6/18 15:00:00'
