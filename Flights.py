@@ -72,7 +72,22 @@ class Flights():
     
     def getNamesOfFlights(self):
         return [elem[0] for elem in self.getFlightsData()]
+    
+    # def getFlightData(self,flightName):
+    #     for flight in self.flights:
+    #         if flight.getName() == flightName:
+    #             return [flight.getName(),flight.(get)]
         
+        
+        
+
+    
+    def getPassengersFromAllFlights(self):
+        PassengersList = [flight.getPassengers() for flight in self.flights if flight.getPassengers()]
+        PassengersList = [item.getTickets() for sublist in PassengersList for item in sublist] 
+        # for elem in  PassengersList:
+        #     print(elem)
+        return PassengersList
     
     
 
@@ -83,8 +98,8 @@ class Flights():
                 
                # print(passengers)
                 
-                for passenger in passengers:
-                    print(passenger.getAllData())
+                # for passenger in passengers:
+                #     print(passenger.getAllData())
                 return passengers
                 
         else:

@@ -75,6 +75,21 @@ def getPassengersListFromDatabase():
         
     return passengers 
 
+def deletePassenger(ticketNumber):
+    sql = f"DELETE FROM `pasazer` WHERE `pasazer`.`Numer_biletu` = {ticketNumber}"
+    
+    dodaj(sql)
+    ...
+
+def deleteFlight(flightName):
+    sql_del_passengers = f"DELETE FROM `pasazer` WHERE `pasazer`.`Nazwa_lotu` = '{flightName}'"
+    dodaj(sql_del_passengers)
+    sql_del_flight = f"DELETE FROM `lot` WHERE `lot`.`Nazwa_lotu` = '{flightName}'"
+    dodaj(sql_del_flight)
+    
+    
+    ...
+
 def getPassengersFromFlightFromDatabase(flightName):
     return getFromDatabase(getSQLPasengersFromFlightFromDatabase(flightName))
     
@@ -98,8 +113,3 @@ if __name__ == '__main__':
     print(getPassengersListFromDatabase())
 
     
-    
-    
-    #print(len(passengers))
-    #DodajLot('RY9999', 'L32', 'Airbus A300', '24/6/20 04:00:00', '24/6/20 18:40:00', 'A12', 'Paryż')
-

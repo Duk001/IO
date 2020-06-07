@@ -56,12 +56,3 @@ if __name__ == '__main__':
     
     pprint(passengers.getPassengersList())
     
-    
-    # passengers.updateCheckInStatus('Ewa Kowalska', 'Waiting')
-    # passengers.removePassenger('Joanna Duda')
-    # pprint(passengers.getPassengersList())
-    # passengers.addPassenger(pas4)
-    # pprint(passengers.getPassengersList())
-    
-    
-    

@@ -32,7 +32,9 @@ class main(tk.Tk):
 
         self.frames = {}
 
-        for F in (StartPage, ControlSystem, InformationSystem,AddNewFlight,ShowFlights, AddNewPassenger ):
+        for F in (StartPage, ControlSystem, InformationSystem,AddNewFlight,
+                  ShowFlights, AddNewPassenger,DeletePassenger,DeleteFlight,
+                  FlightInfo,DelayControl):
 
             frame = F(container, self)
 
@@ -90,6 +92,17 @@ class ControlSystem(tk.Frame):
         button3 = tk.Button(self, text="Dodaj pasażera",
                             command=lambda: controller.show_frame(AddNewPassenger))
         button3.pack()
+        button4 = tk.Button(self, text="Usuń pasażera",
+                            command=lambda: controller.show_frame(DeletePassenger))
+        button4.pack()
+        
+        button5 = tk.Button(self, text="Usuń Lot",
+                            command=lambda: controller.show_frame(DeleteFlight))
+        button5.pack()
+        
+        button6 = tk.Button(self, text="Kontrola opóźnień",
+                            command=lambda: controller.show_frame(DelayControl))
+        button6.pack()
         # button2 = tk.Button(self, text="Page Two",
         #                     command=lambda: controller.show_frame(InformationSystem))
         # button2.pack()
@@ -110,6 +123,10 @@ class InformationSystem(tk.Frame):
         button2 = tk.Button(self, text="Pokaż odloty",
                             command=lambda: controller.show_frame(ShowFlights))
         button2.pack()
+
+        button3 = tk.Button(self, text="Pokaż informacje o locie",
+                            command=lambda: controller.show_frame(FlightInfo))
+        button3.pack()
 
         # button2 = tk.Button(self, text="Page One",
         #                     command=lambda: controller.show_frame(ControlSystem))
@@ -208,13 +225,10 @@ class AddNewPassenger(tk.Frame):
         
         labelDep = tk.Label(self, text="Nazwa lotu: ").place(x=0,y=190)
         
-        self.entryFlightName =  ttk.Combobox(self, values = loty.getNamesOfFlights())#tk.Entry(self,bd = 5) #.place(x=100,y=100)
+        self.entryFlightName =  ttk.Combobox(self,postcommand = self.UpdateCombobox )# values = loty.getNamesOfFlights())#tk.Entry(self,bd = 5) #.place(x=100,y=100)
         self.entryFlightName.place(x=100,y=190)
         
         
-        #loty.getNamesOfFlights()
-        # self.entryFlightName = tk.Entry(self,bd = 5) #.place(x=100,y=100)
-        # self.entryFlightName.place(x=100,y=160)
         
         labelAr = tk.Label(self, text="Typ bagażu: ").place(x=0,y=220)
         self.entryBag = tk.Entry(self,bd = 5) #.place(x=100,y=100)
@@ -252,16 +266,11 @@ class AddNewPassenger(tk.Frame):
             str(self.entryCheckIn.get()),
             self.entrySeat.get()
         )
-        # print( str(self.entryName.get()),
-        #     str(self.entryReg.get()),
-        #     str(self.entryPlane.get()),
-        #     str(self.entryDep.get()),
-        #     str(self.entryAr.get()),
-        #     str(self.entryGate.get()),
-        #     str(self.entryDest.get())
-        # )
+
         loty.AddFlightsFromDatabase()
-        
+    def UpdateCombobox(self):
+        self.entries = loty.getNamesOfFlights()
+        self.entryFlightName['values'] = self.entries
         
         
         
@@ -303,7 +312,7 @@ class ShowFlights(tk.Frame):
         flightsList.sort(key=lambda e: e[1])
         for elem in flightsList:
             self.tree.insert("","end",values = (elem[0],elem[3],elem[1],elem[2],elem[4]))
-            print(elem)
+            #print(elem)
             #print(elem)
         
         
@@ -311,12 +320,176 @@ class ShowFlights(tk.Frame):
         
         
         
+class FlightInfo(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label1 = tk.Label(self, text="Informacje o locie", font=LARGE_FONT)
+        label1.pack(pady=10,padx=10)
+        self.text = tk.StringVar()
+        self.text.set('Test')
         
-#test = tk.Tk()
+        label2 = tk.Label(self, text=" ", font=LARGE_FONT)
+        label2.pack(pady=10,padx=10)
+        
+        label3 = tk.Label(self, text="Wpisz numer lotu:", font=("Verdana", 10))
+        label3.pack(pady=10,padx=10)
+        
+        self.entry = tk.Text(self,height = 1, width = 10)
+        self.entry.pack()
+        
+        buttonGetInfo = tk.Button(self, text="Wyszukaj lot",
+                            command= self.ShowInfo)
+        buttonGetInfo.pack()
+        self.label4 = tk.Label(self, textvariable = self.text, font=("Verdana", 10))
+        self.label4.pack(pady=10,padx=10)
+        
+        buttonExit = tk.Button(self, text="Powrót do Systemu informacyjnego",
+                            command=lambda: controller.show_frame(InformationSystem))
+        buttonExit.pack()
+    def ShowInfo(self):
+        self.text.set(Information.showFlightInformation(str(self.entry.get("1.0",tk.END)).strip()))  # = Information.showFlightInformation(self.entry.get("1.0",tk.END))
+
+        ...
+    
+    ...
+        
+        
+class DeletePassenger(tk.Frame):
+    def __init__(self, parent, controller):
+        self.entries = loty.getPassengersFromAllFlights()
+        loty.AddFlightsFromDatabase()
+        tk.Frame.__init__(self, parent)
+        label1 = tk.Label(self, text="Usuń pasażera", font=LARGE_FONT)
+        label1.pack(pady=10,padx=10)
+        
+        
+        labelDep = tk.Label(self, text="Nazwa lotu: ")
+        labelDep.pack()
+        
+        self.entryTicket =  ttk.Combobox(self, postcommand = self.UpdateCombobox    )        #values = self.entries)
+        self.entryTicket.pack()
+        
+        
+        
+        buttonDel = tk.Button(self, text="Usuń",
+                            command=self.Delete)
+        buttonDel.pack()
+        
+        buttonExit = tk.Button(self, text="Powrót do Systemu kontroli",
+                            command=lambda: controller.show_frame(ControlSystem))
+        buttonExit.pack()
+        
+    def Delete(self):
+        db.deletePassenger(self.entryTicket.get())
+        
+        loty.AddFlightsFromDatabase()
+        self.entries = loty.getPassengersFromAllFlights()
+        #loty.getPassengersFromAllFlights()
+        
+    def UpdateCombobox(self):
+        self.entries = loty.getPassengersFromAllFlights()
+        self.entryTicket['values'] = self.entries
+        
+        
+        
+        ...
+        
+        
+        
+        
+class DeleteFlight(tk.Frame):
+    def __init__(self, parent, controller):
+        #self.entries = loty.getPassengersFromAllFlights()
+        loty.AddFlightsFromDatabase()
+        tk.Frame.__init__(self, parent)
+        label1 = tk.Label(self, text="Usuń pasażera", font=LARGE_FONT)
+        label1.pack(pady=10,padx=10)
+        
+        
+        labelDep = tk.Label(self, text="Nazwa lotu: ")
+        labelDep.pack()
+        
+        self.entryFlight =  ttk.Combobox(self, postcommand = self.UpdateCombobox    )        #values = self.entries)
+        self.entryFlight.pack()
+        
+        
+        
+        buttonDel = tk.Button(self, text="Usuń",
+                            command=self.Delete)
+        buttonDel.pack()
+        
+        buttonExit = tk.Button(self, text="Powrót do Systemu kontroli",
+                            command=lambda: controller.show_frame(ControlSystem))
+        buttonExit.pack()
+        
+    def Delete(self):
+        #db.deletePassenger(self.entryTicket.get())
+        
+        loty.AddFlightsFromDatabase()
+        self.entries = loty.getPassengersFromAllFlights()
+        
+        db.deleteFlight(self.entryFlight.get())
+        loty.AddFlightsFromDatabase()
+        #loty.getPassengersFromAllFlights()
+        
+    def UpdateCombobox(self):
+        self.entries = loty.getNamesOfFlights()
+        self.entryFlight['values'] = self.entries
+        
+        
+class DelayControl(tk.Frame):
+    def __init__(self, parent, controller):
+        #self.entries = loty.getPassengersFromAllFlights()
+        loty.AddFlightsFromDatabase()
+        tk.Frame.__init__(self, parent)
+        label1 = tk.Label(self, text="Kontrola opóźnień", font=LARGE_FONT)
+        label1.pack(pady=10,padx=10)
+        
+
+        self.text = tk.StringVar()
+        self.text.set('Wprowadź Dane')
+        
+        
+        
+        labelFlightName = tk.Label(self, text="Nazwa opóźnionego lotu: ")
+        labelFlightName.pack()
+        self.entryFlight =  ttk.Combobox(self, postcommand = self.UpdateCombobox    )        #values = self.entries)
+        self.entryFlight.pack()
+        
+        labelDelay = tk.Label(self, text="Wpisz opóźnienie (w minutach): ")
+        labelDelay.pack()
+        
+        self.entryDelay = tk.Entry(self,bd = 5) #.place(x=100,y=100)
+        self.entryDelay.pack()
+        
+        buttonDelay = tk.Button(self, text="Akceptuj",
+                            command=self.Control)
+        buttonDelay.pack()
+        
+        self.label4 = tk.Label(self, textvariable = self.text, font=("Verdana", 10))
+        self.label4.pack(pady=10,padx=10)
+        
+        
+        labelNULL = tk.Label(self, text="")
+        labelNULL.pack()
+        labelNULL = tk.Label(self, text="")
+        labelNULL.pack()
+        buttonExit = tk.Button(self, text="Powrót do Systemu kontroli",
+                            command=lambda: controller.show_frame(ControlSystem))
+        buttonExit.pack()
+    
+    def UpdateCombobox(self):
+        self.entries = loty.getNamesOfFlights()
+        self.entryFlight['values'] = self.entries
+        
+    def Control(self):
+        Dep, tmp = AirportControl.DelayControl(str(self.entryFlight.get()).strip(),int(self.entryDelay.get()))
+        
+        self.text.set('Nowa data wylotu: ' + Dep)
+        loty.AddFlightsFromDatabase()
+        
+        ...
+        
 print(loty.getNamesOfFlights())
 app = main()
 app.mainloop()
-
-
-
-#print(Information.getFlights())

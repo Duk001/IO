@@ -23,14 +23,15 @@ class InformationSystem():
   
     def showFlightInformation(self, flightName):
         for flight in self.getFlights():
+            print(flight[0],flightName ,flight[0] == flightName )
             if flight[0] == flightName:
-                # print(
-                #     f"Lot {flight[0]} do {flight[3]} odlatuje z bramki {flight[4]} o godzinie {flight[1]}\n \
-                #     Lot będzie trwał {flight[2] - flight[1]}"
-                #       )
+                print(
+                    f"Lot {flight[0]} do {flight[3]} odlatuje z bramki {flight[4]} o godzinie {flight[1]}\n \
+                    Lot będzie trwał {flight[2] - flight[1]}"
+                      )
                 return f"Lot {flight[0]} do {flight[3]} odlatuje z bramki {flight[4]} o godzinie {flight[1]}\nLot będzie trwał {flight[2] - flight[1]}"
                       
-            
+        return f"Nie znaleziono lotu {flightName}"
             
             #print(flight)
         
