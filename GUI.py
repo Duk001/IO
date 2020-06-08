@@ -363,7 +363,7 @@ class DeletePassenger(tk.Frame):
         label1.pack(pady=10,padx=10)
         
         
-        labelDep = tk.Label(self, text="Nazwa lotu: ")
+        labelDep = tk.Label(self, text="Numer biletu: ")
         labelDep.pack()
         
         self.entryTicket =  ttk.Combobox(self, postcommand = self.UpdateCombobox    )        #values = self.entries)
