@@ -95,21 +95,5 @@ def getPassengersFromFlightFromDatabase(flightName):
     
     
 
-    
-    
-    
-
-
-from pprint import pprint
-import numpy as np
-if __name__ == '__main__':
-    
-    #wyswietl(wys_wszystko('*','lot'))    
-    # loty = getFlightsFromDatabase()
-    passengers = getPassengersListFromDatabase()
-    #pprint(passengers)
-    pprint(getPassengersFromFlightFromDatabase('AF2177'))
-    
-    print(getPassengersListFromDatabase())
 
     

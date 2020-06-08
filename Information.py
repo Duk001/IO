@@ -1,6 +1,5 @@
 from Flights import *
 from Passengers import *
-from pprint import pprint
 from datetime import datetime
 import numpy as np
 class InformationSystem():
@@ -13,11 +12,11 @@ class InformationSystem():
     def getFlights(self):
         flightsData = np.array(self.flights.getFlightsData())[:,0:-1]
        
-        #pprint(flightsData) 
+
         return flightsData       
     # def getPassengers(self):
     #     passengersData = self.passengers.getPassengersList()
-    #     pprint(passengersData)
+
   
   
   

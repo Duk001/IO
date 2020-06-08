@@ -110,18 +110,3 @@ class Flights():
 
 
 
-from pprint import pprint
-
-
-
-
-if __name__ == '__main__':
-    
-
-    loty = Flights()
-    loty.AddFlightsFromDatabase()
- 
-    
-    #loty.getPassengersFromFlight('RY1082')
-    loty.getNamesOfFlights()
-    

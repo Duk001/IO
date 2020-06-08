@@ -43,16 +43,3 @@ class Passengers():
         
 
 
-if __name__ == '__main__':
-    from pprint import pprint
-    pas1 = Passenger('Adam Nowak','AF777',True,'Checked in','JK0001')
-    pas2 = Passenger('Jan Nowak','AF777',True,'Checked in','JK0002')
-    pas3 = Passenger('Ewa Kowalska','AF777',False,'Checked in','JK0003')
-    pas4 = Passenger('Joanna Duda','AF777',True,'Checked in','JK0004')
-    
-    passengers = Passengers([pas4,pas2,pas3,pas1])
-    passengers = Passengers([])
-    passengers.getPassengersFromDatabase()
-    
-    pprint(passengers.getPassengersList())
-    
