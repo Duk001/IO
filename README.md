@@ -10,4 +10,4 @@
 <br />
 <br />
 
-***Uwaga: daty odlotów i przylotów należy podawać w następującym formacie: %dd/%mm/%yy %H:%M:%S np. (19/6/18 13:55:26)***
+***Uwaga: <br/> Daty odlotów i przylotów należy podawać w następującym formacie: %dd/%mm/%yy %H:%M:%S np. (19/6/18 13:55:26)***
