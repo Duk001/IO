@@ -402,7 +402,7 @@ class DeleteFlight(tk.Frame):
         #self.entries = loty.getPassengersFromAllFlights()
         loty.AddFlightsFromDatabase()
         tk.Frame.__init__(self, parent)
-        label1 = tk.Label(self, text="Usuń pasażera", font=LARGE_FONT)
+        label1 = tk.Label(self, text="Usuń Lot", font=LARGE_FONT)
         label1.pack(pady=10,padx=10)
         
         
