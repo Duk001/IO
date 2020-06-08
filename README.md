@@ -7,3 +7,7 @@
 6. Potem należy kliknąć Import i wybrać plik załączony w paczce o nazwie: lotnisko.sql  <br />
 7. Przed uruchomieniem prototypu należy zaimportować moduł mysql.connector(pip install mysql.connector) <br /> 
 8. Następnie po poprawnym zaimportowaniu bazy danych,oraz pobraniu modułów z repozytorium, uruchomić plik: GUI.py  <br />
+
+
+
+***Uwaga: daty odlotów i przylotów należy podawać w następującym formacie: %dd/%mm/%yy %H:%M:%S np. (19/6/18 13:55:26)***
